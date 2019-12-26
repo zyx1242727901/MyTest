@@ -10,9 +10,10 @@ public class TestJoin {
                     try {
                         Thread.sleep(2000);
                         for (int j =0;j<100;j++) {
+                            Thread.sleep(200);
+
                             System.out.println("Thread 1 start============");
                         }
-                        Thread.sleep(2000);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -25,11 +26,12 @@ public class TestJoin {
                 public void run() {
 
                     try {
-                        Thread.sleep(4000);
+                        Thread.sleep(2000);
                         for (int j =0;j<100;j++) {
+                            Thread.sleep(200);
+
                             System.out.println("Thread 2 start");
                         }
-                        Thread.sleep(2000);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -46,7 +48,7 @@ public class TestJoin {
                 o2.start();
                 System.out.println("start join");
 
-
+                //join之后   o1和o2还是并行的
                 o1.join();
                 System.out.println("start join1++++++");
 
