@@ -10,5 +10,7 @@ public class Test {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(MyConfig.class);
         Calculate calculate = (Calculate)ctx.getBean("calculate");
         System.out.println(calculate.add(1));
+
+
     }
 }

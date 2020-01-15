@@ -10,4 +10,5 @@ public class Calculate {
     public int add(int a){
         return 1+a;
     }
+
 }
