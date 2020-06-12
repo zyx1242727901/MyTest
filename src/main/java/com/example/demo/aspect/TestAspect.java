@@ -27,6 +27,7 @@ public class TestAspect {
      */
     @Before("pointCut()")
     public void doBefore(JoinPoint joinPoint) {
+        Object target = joinPoint.getTarget();
         System.out.println("start aspect");
     }
 

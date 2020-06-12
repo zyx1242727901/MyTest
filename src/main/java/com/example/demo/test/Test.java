@@ -9,7 +9,9 @@ public class Test {
     public static void main(String[] args) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(MyConfig.class);
         Calculate calculate = (Calculate)ctx.getBean("calculate");
-        System.out.println(calculate.add(1));
+        System.out.println(calculate);
+        System.out.println(calculate.doAdd(1));
+//        System.out.println(calculate.add(1));
 
 
     }
