@@ -61,14 +61,14 @@ public class LoginController {
         String code = request.getParameter("code");
         String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + AuthUtil.APPID + "&secret="
                 + AuthUtil.APPSECRET + "&code=" + code + "&grant_type=authorization_code";
-//        JSONObject jsonObject = AuthUtil.doGetJson(url);
-//        log.info("access_token   "+jsonObject);
-//        String openid = jsonObject.optString("openid");
-//        String token = jsonObject.optString("access_token");
-//        String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=" + token + "&openid=" + openid
-//                + "&lang=zh_CN";
-//        JSONObject userInfo = AuthUtil.doGetJson(infoUrl);
-//        log.info("userInfo   "+userInfo);
+        JSONObject jsonObject = AuthUtil.doGetJson(url);
+        log.info("access_token   "+jsonObject);
+        String openid = jsonObject.optString("openid");
+        String token = jsonObject.optString("access_token");
+        String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=" + token + "&openid=" + openid
+                + "&lang=zh_CN";
+        JSONObject userInfo = AuthUtil.doGetJson(infoUrl);
+        log.info("userInfo   "+userInfo);
 
         //此处需返回openId，授权成功后页面根据不同的
     }
@@ -119,4 +119,30 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+
+    @Description("绑定开放平台账号")
+    @RequestMapping("/bind")
+    @ResponseBody
+    public void bind(){
+
+        try {
+//            String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+AuthUtil.APPID+"&secret="+ AuthUtil.APPSECRET;
+//
+//            JSONObject jsonObject = AuthUtil.doGetJson(url);
+//            log.info("token=" + jsonObject);
+//            String access_token = jsonObject.optString("access_token");
+            String access_token = "34_lVZTBKrWAAJHq77FbB3Pl0EFhsZ0yDAisvLCFgyOgVQJBeKNKlmzO9-32rmUCIANw82TcQaH7VGwSXCGqpcZqUUstKY-hbnSWepxk7jvzQIYFHz557Mj-AF7yHu6w7-UFry_Y8WoOIuHddgCBQNbAIAETQ";
+            String bindUrl =  "https://api.weixin.qq.com/cgi-bin/open/create?access_token="+access_token;
+            JSONObject jsonObject = AuthUtil.post(bindUrl,"{'appid':'"+AuthUtil.APPID+"'}");
+
+            log.info("bindUrl=" + jsonObject);
+            String open_appid = jsonObject.optString("open_appid");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

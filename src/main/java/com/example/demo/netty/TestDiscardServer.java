@@ -20,9 +20,11 @@ public class TestDiscardServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel sc) throws Exception {
-                            sc.pipeline().addLast(new DiscardServiceHandler());
+                            sc.pipeline().addLast(new OutBondsServiceHandler());
+                            sc.pipeline().addLast(new DiscardServiceHandler()).addLast(new DiscardMessageHandler());
                         }
-                    }).option(ChannelOption.SO_BACKLOG, 128)
+                    })
+                    .option(ChannelOption.SO_BACKLOG, 1024)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
 
             ChannelFuture sync = bootstrap.bind(port).sync();
