@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class TestSchedule {
 
-    @Scheduled(cron = "0 0/1 * * * ? ")
+//    @Scheduled(cron = "0 0/1 * * * ? ")
     public void test1(){
         try {
             TimeUnit.SECONDS.sleep(5);
@@ -18,7 +18,7 @@ public class TestSchedule {
         System.out.println("t1 start"+System.nanoTime());
     }
 
-    @Scheduled(cron = "0 0/1 * * * ? ")
+//    @Scheduled(cron = "0 0/1 * * * ? ")
     public void test2(){
         try {
             TimeUnit.SECONDS.sleep(5);
