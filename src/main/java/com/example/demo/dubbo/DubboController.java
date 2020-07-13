@@ -11,6 +11,7 @@ public class DubboController {
     @Reference
     private ProviderService providerService;
 
+
     @RequestMapping("/name")
     public String getName(){
         return providerService.getName("凤年");

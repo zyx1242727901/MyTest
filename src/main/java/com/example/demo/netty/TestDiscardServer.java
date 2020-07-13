@@ -1,6 +1,5 @@
 package com.example.demo.netty;
 
-import com.sun.tools.javac.util.Log;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;

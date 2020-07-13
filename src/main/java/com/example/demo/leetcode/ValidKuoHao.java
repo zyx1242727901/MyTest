@@ -1,6 +1,5 @@
 package com.example.demo.leetcode;
 
-import com.sun.tools.javac.util.Pair;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
