@@ -1,27 +1,20 @@
 package com.example.demo.netty;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.group.DefaultChannelGroup;
-import io.netty.util.CharsetUtil;
-import io.netty.util.ReferenceCountUtil;
-import io.netty.util.concurrent.GlobalEventExecutor;
 
 public class DiscardServiceHandler extends ChannelInboundHandlerAdapter {
 
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf in = (ByteBuf) msg;
+//        ByteBuf in = (ByteBuf) msg;
 
         try {
             //此处处理业务逻辑
-            String str = in.toString(CharsetUtil.UTF_8);
-            System.out.println(str);
-            ctx.fireChannelRead(msg);
-            ctx.write(msg);
+//            String str = in.toString(CharsetUtil.UTF_8);
+            System.out.println("DiscardServiceHandler "+msg);
+            ctx.writeAndFlush(msg);
         } finally {
 //            ReferenceCountUtil.release(msg);
         }
