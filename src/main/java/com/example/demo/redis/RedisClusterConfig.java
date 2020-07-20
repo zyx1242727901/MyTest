@@ -1,16 +1,12 @@
 package com.example.demo.redis;
 
-import org.apache.commons.pool2.impl.GenericObjectPool;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import redis.clients.jedis.*;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLParameters;
-import javax.net.ssl.SSLSocketFactory;
-import java.util.HashSet;
-import java.util.Set;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
 public class RedisClusterConfig {
@@ -39,5 +35,18 @@ public class RedisClusterConfig {
         new JedisPoolConfig();
         JedisPool JedisPool = new JedisPool(new JedisPoolConfig(),"39.105.95.181",6793,5000,"yuxiao0122");
         return JedisPool;
+    }
+
+    @Bean
+    public RedissonClient redissonClient(){
+        Config config = new Config();
+//        config.useClusterServers().addNodeAddress("redis://39.105.95.181:6793",
+//                "redis://39.105.95.181:6794","redis://39.105.95.181:6795"
+//                ,"redis://39.105.95.181:6796","redis://39.105.95.181:6797"
+//                ,"redis://39.105.95.181:6798")
+//                .setPassword("yuxiao0122");
+        config.useSingleServer().setAddress("redis://39.105.95.181:6793")
+                .setPassword("yuxiao0122");
+        return Redisson.create(config);
     }
 }

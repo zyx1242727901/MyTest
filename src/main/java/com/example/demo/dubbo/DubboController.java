@@ -16,7 +16,7 @@ import java.util.Set;
 @RequestMapping("dubbo")
 public class DubboController {
 //    如果像这样配置了指定url，那么注册中心不启动也可以@Reference(url = "dubbo://10.10.2.75:20880/com.example.demo.dubbo.ProviderService?accesslog=true&anyhost=true&application=service-provider&default.delay=-1&default.retries=1&delay=-1&dubbo=2.6.2&generic=false&interface=com.example.demo.dubbo.ProviderService&loadbalance=random&methods=getName&pid=98701&side=provider&timestamp=1594983022753")
-    @Reference
+    @Reference(url = "dubbo://10.10.2.75:20880")
     private ProviderService providerService;
     @Autowired
     private ZkClient zkClient;
