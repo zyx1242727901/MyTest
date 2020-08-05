@@ -5,12 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
+
 @Slf4j
 public class TestMain {
 
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        ThreadLocal threadLocal1 = new ThreadLocal();
+//        ThreadLocal threadLocal1 = new ThreadLocal();
 
 
 //        ExecutorService executorService = Executors.newFixedThreadPool(2);
@@ -64,8 +66,53 @@ public class TestMain {
 //            completionTask++;
 //        }
 
-        List<String> list = new ArrayList<>(2); list.add("guan");
-        list.add("bao");
-        String[] array = list.toArray(new String[0]);
+//        List<String> list = new ArrayList<>(2); list.add("guan");
+//        list.add("bao");
+//        String[] array = list.toArray(new String[0]);
+
+
+
+//        土豆用的
+        ArrayList<Integer> list = new ArrayList<Integer>();
+
+        int [] b = {0};
+        for (int i = 1; i <= 5; i++) {
+            list.add(i);
+        }
+        list.add(2);
+        list.add(1);
+//        for(int i = 0; i < list.size(); i++) {
+//            System.out.print(list.get(i)+"\t");
+//        }
+        System.out.println();
+        List<Integer>[] array = new ArrayList[list.size()];
+        List<Integer> parseList = new ArrayList<>();
+
+
+        Stream.iterate(0, i -> i + 1).limit(list.size()).forEach(i -> {
+            Integer temp = list.get(i);
+            if (!parseList.contains(temp)) {
+                parseList.add(temp);
+            }
+            int index = parseList.indexOf(temp);
+            if (array[index] == null) {
+                array[index] = new ArrayList<>();
+            }
+            array[index].add(i);
+        });
+
+        System.out.println();
+//        parseList.stream().forEach(integer -> {
+//            System.out.print(integer+"\t");
+//        });
+        System.out.println();
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != null && array[i].size() > 0) {
+                array[i].stream().forEach(integer -> {
+                    System.out.println(integer+"\t");
+                });
+                System.out.println();
+            }
+        }
     }
 }

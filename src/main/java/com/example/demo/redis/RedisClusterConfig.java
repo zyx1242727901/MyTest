@@ -46,7 +46,7 @@ public class RedisClusterConfig {
 //                ,"redis://39.105.95.181:6798")
 //                .setPassword("yuxiao0122");
         config.useSingleServer().setAddress("redis://39.105.95.181:6793")
-                .setPassword("yuxiao0122");
+                .setPassword("yuxiao0122").setConnectionPoolSize(5).setConnectionMinimumIdleSize(1);
         return Redisson.create(config);
     }
 }
