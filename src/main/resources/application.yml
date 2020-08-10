@@ -35,11 +35,26 @@ spring:
                 concurrency: 2  #最小线程监听数
             direct:
                 prefetch: 0 #当prefetch=0是，表示consumer将使用PULL(拉取)的方式从broker端获取消息
-
+    datasource:
+        db1:
+            jdbc-url: jdbc:mysql://39.105.95.181:3306/thunder?useUnicode=true&amp
+            driverClassName: com.mysql.jdbc.Driver
+            username: root
+            password: Zyx124272
+        db2:
+            jdbc-url: jdbc:mysql://localhost:3306/testQCC?useUnicode=true&amp
+            driverClassName: com.mysql.jdbc.Driver
+            username: root
+            password: 123456
 
 rocketmq:
     name-server: 39.105.95.181:9876
     producer:
         group: tansaction-group1
 
+mybatis:
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+#    type-aliases-package: com.example.demo
+#    mapper-locations: classpath*:mapper/*.xml
