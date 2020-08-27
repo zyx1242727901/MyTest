@@ -2,22 +2,22 @@ server:
     port: 8080
 
 
-dubbo:
-    application:
-        name: server-consumer
-    base-backage: com.example.demo # dubbo服务调用者所在的包
-    registry:
-        address: 39.105.95.181
-        port: 2181
-        protocol: zookeeper
-        subscribe: true
-    protocol:
-        name: dubbo
-        host: 192.168.0.116
-    consumer:
-        timeout: 1000
-        check: false  # 服务启动时检查被调用服务是否可用
-        retries: 2    # 服务调用重试次数
+#dubbo:
+#    application:
+#        name: server-consumer
+#    base-backage: com.example.demo # dubbo服务调用者所在的包
+#    registry:
+#        address: 39.105.95.181
+#        port: 2181
+#        protocol: zookeeper
+#        subscribe: true
+#    protocol:
+#        name: dubbo
+#        host: 192.168.0.116
+#    consumer:
+#        timeout: 1000
+#        check: false  # 服务启动时检查被调用服务是否可用
+#        retries: 2    # 服务调用重试次数
 
 spring:
     rabbitmq:
@@ -35,26 +35,104 @@ spring:
                 concurrency: 2  #最小线程监听数
             direct:
                 prefetch: 0 #当prefetch=0是，表示consumer将使用PULL(拉取)的方式从broker端获取消息
-    datasource:
-        db1:
-            jdbc-url: jdbc:mysql://39.105.95.181:3306/thunder?useUnicode=true&amp
-            driverClassName: com.mysql.jdbc.Driver
-            username: root
-            password: Zyx124272
-        db2:
-            jdbc-url: jdbc:mysql://localhost:3306/testQCC?useUnicode=true&amp
-            driverClassName: com.mysql.jdbc.Driver
-            username: root
-            password: 123456
+#    datasource:
+#        db1:
+#            jdbc-url: jdbc:mysql://39.105.95.181:3306/thunder?useUnicode=true&amp
+#            driverClassName: com.mysql.jdbc.Driver
+#            username: root
+#            password: Zyx124272
+#        db2:
+#            jdbc-url: jdbc:mysql://localhost:3306/testQCC?useUnicode=true&amp
+#            driverClassName: com.mysql.jdbc.Driver
+#            username: root
+#            password: 123456
+    data:
+        elasticsearch:
+            cluster-name: my-es
+            cluster-nodes: 39.105.95.181:9300
+    shardingsphere:
+        datasource:
+            names: ds0,ds1,slave1,slave2
+            ds0:
+                type: com.zaxxer.hikari.HikariDataSource
+                driver-class-name: com.mysql.jdbc.Driver
+                jdbc-url: jdbc:mysql://localhost:3306/ds0?useUnicode=true&amp
+                username: root
+                password: 123456
+            ds1:
+                type: com.zaxxer.hikari.HikariDataSource
+                driver-class-name: com.mysql.jdbc.Driver
+                jdbc-url: jdbc:mysql://localhost:3306/ds1?useUnicode=true&amp
+                username: root
+                password: 123456
+            slave1:
+                type: com.zaxxer.hikari.HikariDataSource
+                driver-class-name: com.mysql.jdbc.Driver
+                jdbc-url: jdbc:mysql://localhost:3306/slave1?useUnicode=true&amp
+                username: root
+                password: 123456
+            slave2:
+                type: com.zaxxer.hikari.HikariDataSource
+                driver-class-name: com.mysql.jdbc.Driver
+                jdbc-url: jdbc:mysql://localhost:3306/slave2?useUnicode=true&amp
+                username: root
+                password: 123456
+        sharding:
+            default-database-strategy:
+                inline:
+                    sharding-column: id
+                    algorithm-expression: ds${id % 2}
+#                hint:
+#                    algorithm-class-name:
+            tables:
+                t_order:
+                    actual-data-nodes: ds$->{0..1}.t_order$->{0..1}
+                    table-strategy:
+                        inline:
+                            sharding-column: order_id
+                            algorithm-expression: t_order$->{order_id % 2}
+                t_order_item:
+                    actual-data-nodes: ds$->{0..1}.t_order_item$->{0..1}
+                    table-strategy:
+                        inline:
+                            sharding-column: order_id
+                            algorithm-expression: t_order_item$->{(order_id+1) % 2}
+            default-key-generator:
+                type: REDIS
+                column: id
+            binding-tables: t_order,t_order_item
+            ####广播表>>>每个数据库都存在, 且数据都是一样的，暂时没设置
+#            broadcast-tables:
+            master-slave-rules:
+                ds0:
+                    master-data-source-name: ds0
+                    slave-data-source-names: slave1
+                ds1:
+                    master-data-source-name: ds1
+                    slave-data-source-names: slave2
+        masterslave:
+            load-balance-algorithm-type: ROUND_ROBIN
+        props:
+            sql:
+                show: true
 
-rocketmq:
-    name-server: 39.105.95.181:9876
-    producer:
-        group: tansaction-group1
+
+
+
+
+#rocketmq:
+#    name-server: 39.105.95.181:9876
+#    producer:
+#        group: tansaction-group1
 
 mybatis:
     configuration:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
+        map-underscore-to-camel-case: true
 #    type-aliases-package: com.example.demo
 #    mapper-locations: classpath*:mapper/*.xml
+
+management:
+    health:
+        elasticsearch:
+            enabled: false

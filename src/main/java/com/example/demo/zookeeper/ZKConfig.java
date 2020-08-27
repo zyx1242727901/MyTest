@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class ZKConfig {
     @Bean
     public ZkClient getInstans(){
-        ZkClient zkClient = new ZkClient("39.105.95.181:2181");
+        ZkClient zkClient = new ZkClient("39.105.95.181:2181", 500, 1000 * 60);
         zkClient.setZkSerializer(new MyZkSerializer());
         return zkClient;
     }

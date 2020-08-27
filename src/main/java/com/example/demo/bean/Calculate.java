@@ -1,7 +1,6 @@
 package com.example.demo.bean;
 
 import com.example.demo.annotation.MyAnnotation;
-import org.springframework.stereotype.Component;
 
 //@Component
 public class Calculate {

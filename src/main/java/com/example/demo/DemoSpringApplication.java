@@ -3,6 +3,7 @@ package com.example.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class DemoSpringApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoSpringApplication.class, args);
+        ConfigurableApplicationContext run = SpringApplication.run(DemoSpringApplication.class, args);
     }
 
 }
