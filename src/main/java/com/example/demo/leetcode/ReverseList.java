@@ -29,6 +29,30 @@ public class ReverseList {
 
         return reverse;
     }
+    //三指针
+    public ListNode reverse2(ListNode head){
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        ListNode next = null;
+        ListNode pre = null;
+        while (head != null) {
+            //因为要断开next与head之间的联系，即让head的next指向前一个节点，所以要先记住next
+            next = head.next;
+            //head 指向前一个节点
+            head.next = pre;
+
+            //前一个节点后移指向head
+            pre = head;
+            //head后移
+            head = next;
+        }
+
+        return pre;
+    }
+
+
 
     //迭代
 //    public ListNode reverseList(ListNode head) {
@@ -48,7 +72,7 @@ public class ReverseList {
         node4.next = node5;
 
 
-        ListNode node = reverseList.reverseList(node1);
+        ListNode node = reverseList.reverse2(node1);
 
         while(node !=null){
             System.out.println(node.val+"-->");
@@ -56,11 +80,7 @@ public class ReverseList {
         }
 
     }
-
 }
 
-class ListNode {
-     int val;
-     ListNode next;
-     ListNode(int x) { val = x; }
-}
+
+

@@ -1,9 +1,5 @@
 package com.example.demo.leetcode;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的
  * 并且它们的每个节点只能存储 一位 数字。
@@ -42,7 +38,7 @@ public class AddTwoNumbers {
             int l1Val = l1 == null ? 0:l1.val;
             int l2Val = l2 == null ? 0:l2.val;
 
-            int sum = (l1Val + l2Val+carry);
+            int sum = (l1Val + l2Val + carry);
             carry = sum/10;
             ListNode temp = new ListNode(sum % 10);
             curNode.next = temp;
@@ -54,6 +50,35 @@ public class AddTwoNumbers {
         }
         return head.next;
     }
+
+    public ListNode addTwoNumbers3(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode(0);  //解决第一个节点的问题
+        ListNode curNode = head;
+        while (l1 != null || l2 != null) {
+            int l1Value = l1 == null ? 0: l1.val;
+            int l2Value = l2 == null ? 0: l2.val;
+            int sum = l1Value + l2Value;
+            int carry = sum/10; //余数
+            int curr = sum % 10;
+
+            l1 = l1 == null ? null: l1.next;
+            l2 = l2 == null ? null : l2.next;
+
+            //余数直接给下一个l1或l2节点加上即可
+            if (l1 == null) {
+                if (carry > 0) {
+                    l1 = new ListNode(carry);
+                }
+            } else {
+                l1.val = l1.val + carry;
+            }
+
+            curNode.next = new ListNode(curr);
+            curNode = curNode.next;
+        }
+        return head.next;
+    }
+
 
     //递归
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -82,12 +107,13 @@ public class AddTwoNumbers {
 
     public static void main(String[] args) {
         ListNode l1 = new ListNode(5);
+        l1.setNext(new ListNode(2));
 //        l1.setNext(new ListNode(4)).setNext(new ListNode(3));
 
         ListNode l2 = new ListNode(5);
 //        l2.setNext(new ListNode(6)).setNext(new ListNode(4));
 
-        ListNode listNode = new AddTwoNumbers().addTwoNumbers(l1, l2);
+        ListNode listNode = new AddTwoNumbers().addTwoNumbers3(l1, l2);
         while(listNode != null){
             System.out.println(listNode.val);
             listNode = listNode.next;

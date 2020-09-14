@@ -7,22 +7,46 @@ package com.example.demo.leetcode;
  * 输出：1->1->2->3->4->4
  */
 public class MergeTwoLists {
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-       
+//    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+//
+//        ListNode resultNode = new ListNode(0);
+//        ListNode curNode = resultNode;
+//
+//        while (l1!=null && l2 != null){
+//            if(l1.val < l2.val){
+//                curNode.next = l1;
+//                l1 = l1.next;
+//            }else{
+//                curNode.next = l2;
+//                l2 = l2.next;
+//            }
+//            curNode = curNode.next;
+//        }
+//
+//        if(l1 != null){
+//            curNode.next = l1;
+//        }else if(l2 != null){
+//            curNode.next = l2;
+//        }
+//        return resultNode.next;
+//    }
+
+
+    public ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
         ListNode resultNode = new ListNode(0);
         ListNode curNode = resultNode;
-
-        while (l1!=null && l2 != null){
-            if(l1.val < l2.val){
+        
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
                 curNode.next = l1;
                 l1 = l1.next;
-            }else{
+            } else {
                 curNode.next = l2;
                 l2 = l2.next;
             }
             curNode = curNode.next;
         }
-        
+        //结束后剩余的那个列表直接拼到后面
         if(l1 != null){
             curNode.next = l1;
         }else if(l2 != null){
@@ -30,7 +54,7 @@ public class MergeTwoLists {
         }
         return resultNode.next;
     }
-    
+
     static class ListNode {
       int val;
       ListNode next;
@@ -53,7 +77,7 @@ public class MergeTwoLists {
         h4.next = h5;
         h5.next = h6;
 
-        ListNode listNode = new MergeTwoLists().mergeTwoLists(h1,h4);
+        ListNode listNode = new MergeTwoLists().mergeTwoLists2(h1,h4);
         while (listNode != null){
             System.out.println(listNode.val);
             listNode = listNode.next;

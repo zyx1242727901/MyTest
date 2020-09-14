@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 8081
 
 
 #dubbo:
@@ -20,6 +20,8 @@ server:
 #        retries: 2    # 服务调用重试次数
 
 spring:
+    session:
+        store-type: redis  #spring session使用存储类型，spirngboot默认就是使用redis方式，如果不想用可以填none
     rabbitmq:
         host: 39.105.95.181
         port: 5672
