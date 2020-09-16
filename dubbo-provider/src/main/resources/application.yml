@@ -1,6 +1,7 @@
 server:
   port: 8081
 
+
 dubbo:
   application:
     name: service-provider
@@ -14,6 +15,12 @@ dubbo:
     name: dubbo
     port: 20880
     accesslog: true
+    accepts: 100 #服务提供方最大可接受连接数
+    threads: 100 #业务线程池大小(固定大小)
+    executes: 100 #服务提供者每服务每方法最大可并行执行请求数
   provider:
     retries: 1
     delay: -1
+    actives: 100 #每服务消费者每服务每方法最大并发调用数
+
+

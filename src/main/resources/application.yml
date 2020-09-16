@@ -2,22 +2,23 @@ server:
     port: 8081
 
 
-#dubbo:
-#    application:
-#        name: server-consumer
-#    base-backage: com.example.demo # dubbo服务调用者所在的包
-#    registry:
-#        address: 39.105.95.181
-#        port: 2181
-#        protocol: zookeeper
-#        subscribe: true
-#    protocol:
-#        name: dubbo
-#        host: 192.168.0.116
-#    consumer:
-#        timeout: 1000
-#        check: false  # 服务启动时检查被调用服务是否可用
-#        retries: 2    # 服务调用重试次数
+dubbo:
+    application:
+        name: server-consumer
+    base-backage: com.example.demo # dubbo服务调用者所在的包
+    registry:
+        address: 39.105.95.181
+        port: 2181
+        protocol: zookeeper
+        subscribe: true
+    protocol:
+        name: dubbo
+        host: 192.168.0.116
+    consumer:
+        timeout: 1000
+        check: false  # 服务启动时检查被调用服务是否可用
+        retries: 2    # 服务调用重试次数
+
 
 spring:
     session:
@@ -138,3 +139,4 @@ management:
     health:
         elasticsearch:
             enabled: false
+
