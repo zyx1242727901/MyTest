@@ -1,7 +1,6 @@
 package com.example.demo.leetcode;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
@@ -31,20 +30,40 @@ public class LengthOfLongestSubstring {
 //        return maxLength;
 //    }
 
-    public int lengthOfLongestSubstring(String s) {
-        int maxLength = 0;
-        int i=0, j = 0;
-        HashMap<Character,Integer> map = new HashMap<>();
+//    public int lengthOfLongestSubstring(String s) {
+//        int maxLength = 0;
+//        int i=0, j = 0;
+//        HashMap<Character,Integer> map = new HashMap<>();
+//
+//        while(j < s.length()){
+//            if(map.containsKey(s.charAt(j))){
+////                i = map.get(s.charAt(j)) ;
+//                //左指针指向当前右指针的重复元素的下标，因为重复元素的下标之前所有元素到右指针形成的的字符串仍会与右指针元素重复
+//                //之所以用max是因为防止后续重复值的下标在当前i之前，因此用max保证不会重复检索
+//                i = Math.max(map.get(s.charAt(j)), i);
+//            }
+//            maxLength = Math.max(maxLength, j-i+1);
+//            map.put(s.charAt(j),++j); //此处put操作会覆盖重复的，所以contain时不用remove
+//        }
+//
+//
+//        return maxLength;
+//    }
 
-        while(j < s.length()){
-            if(map.containsKey(s.charAt(j))){
-//                i = map.get(s.charAt(j)) ;
-                //左指针指向当前右指针的重复元素的下标，因为重复元素的下标之前所有元素到右指针形成的的字符串仍会与右指针元素重复
-                //之所以用max是因为防止后续重复值的下标在当前i之前，因此用max保证不会重复检索
-                i = Math.max(map.get(s.charAt(j)), i);
+    //滑动窗口解法
+    public int lengthOfLongestSubstring(String s) {
+        int left = 0, right = 0;
+        int maxLength = 0;
+        HashMap<Character,Integer> map = new HashMap<>();
+        while (right < s.length()) {
+            char c = s.charAt(right);
+
+            if (map.containsKey(c)) {
+                left = Math.max(left, map.get(c) + 1);
             }
-            maxLength = Math.max(maxLength, j-i+1);
-            map.put(s.charAt(j),++j); //此处put操作会覆盖重复的，所以contain时不用remove
+            map.put(c, right);
+            maxLength = Math.max(maxLength, right - left + 1);
+            right++;
         }
 
 

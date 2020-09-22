@@ -139,4 +139,10 @@ management:
     health:
         elasticsearch:
             enabled: false
+zyx:
+  zk:
+    serverAddr: 39.105.95.181:2181
+    sessionTimeOut: 500
+    connectionTimeOut: 6000
+
 

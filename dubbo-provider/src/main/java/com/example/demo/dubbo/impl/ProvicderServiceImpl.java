@@ -2,14 +2,9 @@ package com.example.demo.dubbo.impl;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.alibaba.csp.sentinel.slots.block.RuleConstant;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.example.demo.dubbo.ProviderService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 @Service(loadbalance = "random",timeout = 50000)
@@ -40,17 +35,6 @@ public class ProvicderServiceImpl implements ProviderService {
         // Do some log here.
         ex.printStackTrace();
         return "Oops, error occurred at " + name;
-    }
-
-    private static void initFlowRules(){
-        List<FlowRule> rules = new ArrayList<>();
-        FlowRule rule = new FlowRule();
-        rule.setResource("getName");
-        rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
-        // Set limit QPS to 20.
-        rule.setCount(20);
-        rules.add(rule);
-        FlowRuleManager.loadRules(rules);
     }
 
 

@@ -2,14 +2,12 @@ package com.example.demo.leetcode;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
-
-import static io.netty.util.concurrent.FastThreadLocal.size;
 
 class LRUCache extends LinkedHashMap<Integer, Integer> {
     private int capacity;
 
     public LRUCache(int capacity) {
+        //注意设置第三个参数为true，会让每次get时，将元素移到队尾（队首是最老的元素）
         super(capacity, 0.75F, true);
         this.capacity = capacity;
     }

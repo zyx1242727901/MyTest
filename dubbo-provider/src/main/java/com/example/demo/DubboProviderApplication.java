@@ -4,6 +4,7 @@ import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
+import com.example.demo.rule.MyFlowRule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -17,11 +18,11 @@ public class DubboProviderApplication {
     public static void main(String[] args) {
         SpringApplication.run(DubboProviderApplication.class, args);
 
-        initFlowRule();
+//        initFlowRule();
 
     }
     private static void initFlowRule() {
-        FlowRule flowRule = new FlowRule();
+        FlowRule flowRule = new MyFlowRule();
         //针对具体的方法限流
         flowRule.setResource("getName");
         flowRule.setGrade(RuleConstant.FLOW_GRADE_QPS);//限流阈值类型（QPS 或并发线程数）
