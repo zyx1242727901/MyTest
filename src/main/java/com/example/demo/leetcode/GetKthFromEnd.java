@@ -58,6 +58,10 @@ class ListNode {
     int val;
     ListNode next;
     ListNode(int x) { val = x; }
+    ListNode setNext(int x){
+        this.next = new ListNode(x);
+        return this.next;
+    }
 
     @Override
     public String toString() {

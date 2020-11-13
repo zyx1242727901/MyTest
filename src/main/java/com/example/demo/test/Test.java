@@ -1,16 +1,11 @@
 package com.example.demo.test;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
-
 public class Test {
     public static void testLamda(){
         System.out.println("test");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 //        ApplicationContext ctx = new AnnotationConfigApplicationContext(MyConfig.class);
 ////        Calculate calculate = (Calculate)ctx.getBean("calculate");
 //        Calculate calculate = (Calculate)ctx.getBean(Calculate.class);
@@ -41,14 +36,14 @@ public class Test {
 //        }
 //        reentrantLock1.lock();
 //        reentrantLock.unlock();
-
-
+//
+//
 //        try {
 //            TimeUnit.SECONDS.sleep(5);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-
+//
 //        FileUtil instance = new FileUtil();
 //        System.out.println(ClassLayout.parseInstance(instance).toPrintable());
 //        System.out.println("===================");
@@ -56,63 +51,72 @@ public class Test {
 //        synchronized (instance) {
 //            System.out.println(ClassLayout.parseInstance(instance).toPrintable());
 //        }
-
+//
 //        Test:testLamda();
-        Set<Integer> set = new TreeSet();
-        int a[][] = {
-                {0, 4, 1, 9, 0},
-                {4, 0, 7, 2, 0},
-                {1, 7, 0, 6, 5},
-                {9, 1, 6, 8, 3},
-                {0, 0, 1, 3, 0}
-        };
-        ArrayList<Integer> list = null;
-        ArrayList<ArrayList<Integer>> list2 = new ArrayList<ArrayList<Integer>>();
-        for (int i = 0; i < a.length; i++) {
-            list = new ArrayList<Integer>();
-            for (int j = 0; j < a[i].length; j++) {
-                list.add(a[i][j]);
-            }
-            list2.add(list);
-        }
-         /*   Iterator it = list2.iterator();
-            while (it.hasNext()) {
-                System.out.println(it.next());
-            }*/
-        list2.stream().forEach(temp->{
-            temp.stream().forEach(integer -> {
-                set.add(integer);
-            });
-        });
 
-        set.stream().forEach(integer ->{
-            System.out.println(integer);
-        });
-//        List<Integer> lst = new ArrayList<Integer>(set);
-//        for(int i = 0; i < lst.size(); i++) {
-//            for(int j = 1; j < lst.size(); j++){
-//                if (lst.get(j) - lst.get(i) == 1) {
-//                    System.out.println("连续");
-//                }
+
+//        FutureTask task = new FutureTask(new Callable<String>() {
+//            @Override
+//            public String call() throws Exception {
+//                TimeUnit.SECONDS.sleep(60);
+//                return "success";
 //            }
-//        }
+//        });
 
-        Iterator<Integer> iterator = set.iterator();
-        int low = -1;
-        int heigh = 0;
-        while (iterator.hasNext()) {
-            heigh = iterator.next();
-            if (low == -1) {
-                low = heigh;
-                continue;
-            }
-            if (heigh - 1 != low) {
-                System.out.println("不连续");
-                return;
-            }
-            low = heigh;
-        }
+//        ThreadPoolExecutor executorService = new ThreadPoolExecutor(1, 10,
+//                0L, TimeUnit.MILLISECONDS,
+//                new ArrayBlockingQueue<>(1));
+////        executorService.execute(task);
+//
+//        executorService.execute(new Thread() {
+//            @Override
+//            public void run()  {
+//                try {
+//                    TimeUnit.SECONDS.sleep(10);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                int i = 1 / 0;
+//
+////                return "success";
+//            }
+//        });
+//        executorService.submit(new Callable<String>() {
+//            @Override
+//            public String call() throws Exception {
+//                TimeUnit.SECONDS.sleep(10);
+////                int i = 1/0;
+//                return "success";
+//            }
+//        });
+//        executorService.submit(new FutureTask(new Callable<String>() {
+//            @Override
+//            public String call() throws Exception {
+//                TimeUnit.SECONDS.sleep(10);
+////                int i = 1/0;
+//
+//                return "success";
+//            }
+//        }));
+//        System.out.println(submit.get());
+//        new Thread(task).start();
+//        System.out.println(task.get());
 
 
+//        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+//        scheduledExecutorService.scheduleAtFixedRate(() -> {
+//            System.out.println("schedule");
+//        }, 0, 10, TimeUnit.SECONDS);
+//
+//
+//        System.out.println("end----------");
+
+//        int[] arr = new int[2];
+//        System.out.println(arr[1]);
+
+//        ConcurrentLinkedQueue queue = new ConcurrentLinkedQueue();
+//        queue.offer("1");
+//        queue.offer("2");
+//        System.out.println(queue.poll());
     }
 }
