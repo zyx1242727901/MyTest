@@ -1,11 +1,9 @@
 package com.example.demo.disruptor;
 
-import com.example.demo.config.MyConfig;
 import com.lmax.disruptor.RingBuffer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class TestDisruptor {
@@ -17,7 +15,7 @@ public class TestDisruptor {
             System.out.println("sequence="+sequence);
                 try {
                     MyEvent myEvent = buffer.get(sequence);
-                    myEvent.setMessage("hallo 啊");
+                    myEvent.setMessage("hallo 啊"+i);
                 }finally {
                     buffer.publish(sequence);
                 }
