@@ -37,4 +37,8 @@ public interface OrderMapper {
             " left join t_order t2 on t1.order_id = t2.order_id" +
             " where t1.order_id=#{orderId}")
     List<OrderItem> selectOrderItem(Long orderId);
+
+    @Select("select t1.* from t_order_item t1 " +
+            " where t1.item_id=#{itemId}")
+    List<OrderItem> selectItemId(Long itemId);
 }

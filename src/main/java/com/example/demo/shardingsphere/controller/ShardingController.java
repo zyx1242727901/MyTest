@@ -33,7 +33,7 @@ public class ShardingController {
     }
 
     @RequestMapping("/selectOrderItem")
-    public String createTable(Long id, int size) {
+    public String selectOrderItem(Long id, int size) {
 
         System.out.println();
         //主库强制路由，适用于某些时效性非常强的业务，避免从库还未同步到数据
@@ -43,6 +43,22 @@ public class ShardingController {
             manager.setMasterRouteOnly();
             PageHelper.startPage(1, size);
             List<OrderItem> orderItem = orderMapper.selectOrderItem(id);
+            return JSON.toJSONString(orderItem);
+        }
+
+    }
+
+    @RequestMapping("/selectItemId")
+    public String selectItemId(Long itemId, int size) {
+
+        System.out.println();
+        //主库强制路由，适用于某些时效性非常强的业务，避免从库还未同步到数据
+        //只作用于最近的一条查询语句
+        //hintManager实现了AutoCloseable接口，可推荐使用try with resource自动关闭。
+        try (HintManager manager = HintManager.getInstance();) {
+            manager.setMasterRouteOnly();
+            PageHelper.startPage(1, size);
+            List<OrderItem> orderItem = orderMapper.selectItemId(itemId);
             return JSON.toJSONString(orderItem);
         }
 
